@@ -8,6 +8,8 @@ const fileUpload = require('../utils/fileUpload');
 
 const router = express.Router();
 
+const apiVersion = process.env.REPLICATE_VERSION;
+
 // Face swap endpoint
 router.post('/swap-faces', 
   fileUpload.fields([
@@ -31,12 +33,12 @@ router.post('/swap-faces',
         sourceImage: req.files.sourceImage[0].filename,
         targetImage: req.files.targetImage[0].filename,
         resultImage: result.resultImage,
-        replicateVersion: "9a4298548422074c3f57258c5d544497314ae4112df80d116f0d2109e843d20d",
+        replicateVersion: apiVersion,
         processingTime: result.processingTime
       });
 
       // Create directory for the operation
-      const operationDir = path.join(__dirname, '../uploads', faceSwapOperation._id.toString());
+      const operationDir = path.join(__dirname, '../../public', faceSwapOperation._id.toString());
       fs.mkdirSync(operationDir, { recursive: true });
 
       // Move files from temp to operation directory

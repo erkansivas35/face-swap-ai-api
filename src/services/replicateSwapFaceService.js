@@ -7,7 +7,11 @@ class ReplicateSwapFaceService {
     if (!process.env.REPLICATE_API_KEY) {
       throw new Error('REPLICATE_API_KEY is required');
     }
+    if (!process.env.REPLICATE_VERSION) {
+      throw new Error('REPLICATE_VERSION is required');
+    }
     this.apiKey = process.env.REPLICATE_API_KEY;
+    this.apiVersion = process.env.REPLICATE_VERSION;
     this.apiUrl = 'https://api.replicate.com/v1/predictions';
   }
 
@@ -67,7 +71,7 @@ class ReplicateSwapFaceService {
       const response = await axios.post(
         this.apiUrl,
         {
-          version: "9a4298548422074c3f57258c5d544497314ae4112df80d116f0d2109e843d20d",
+          version: this.apiVersion,
           input: {
             swap_image: processedSourceImage,
             target_image: processedTargetImage

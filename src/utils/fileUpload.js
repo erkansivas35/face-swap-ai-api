@@ -4,7 +4,7 @@ const fs = require('fs');
 const { AppError } = require('../middleware/errorHandler');
 
 // Create temp directory if it doesn't exist
-const tempDir = path.join(__dirname, '../uploads/temp');
+const tempDir = path.join(__dirname, '../../public/temp');
 if (!fs.existsSync(tempDir)) {
   fs.mkdirSync(tempDir, { recursive: true });
 }
