@@ -2,8 +2,8 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const { AppError } = require('../middleware/errorHandler');
-const faceService = require('../services/faceService');
-const FaceSwapModel = require('../models/faceSwap');
+const replicateSwapFaceService = require('../services/replicateSwapFaceService');
+const faceSwapService = require('../services/faceSwapMongoSetService');
 
 const router = express.Router();
 
@@ -45,21 +45,19 @@ router.post('/swap-faces',
         throw new AppError(400, 'Both sourceImage and targetImage are required');
       }
 
-      const result = await faceService.swapFaces(
+      const result = await replicateSwapFaceService.swapFaces(
         req.files.sourceImage[0].path,
         req.files.targetImage[0].path
       );
 
-      // Save operation details to MongoDB
-      const faceSwapOperation = new FaceSwapModel({
+      // Save operation details using the service
+      const faceSwapOperation = await faceSwapService.saveFaceSwapOperation({
         sourceImage: req.files.sourceImage[0].filename,
         targetImage: req.files.targetImage[0].filename,
         resultImage: result.resultImage,
         replicateVersion: "9a4298548422074c3f57258c5d544497314ae4112df80d116f0d2109e843d20d",
         processingTime: result.processingTime
       });
-
-      await faceSwapOperation.save();
 
       res.json({
         success: true,

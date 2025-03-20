@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const { AppError } = require('../middleware/errorHandler');
 
-class FaceService {
+class ReplicateSwapFaceService {
   constructor() {
     if (!process.env.REPLICATE_API_KEY) {
       throw new Error('REPLICATE_API_KEY is required');
@@ -140,4 +140,4 @@ class FaceService {
   }
 }
 
-module.exports = new FaceService();
+module.exports = new ReplicateSwapFaceService();
