@@ -1,6 +1,5 @@
 const express = require('express');
 const multer = require('multer');
-const path = require('path');
 const { AppError } = require('../middleware/errorHandler');
 const faceService = require('../services/faceService');
 
@@ -32,7 +31,7 @@ router.post('/swap-faces',
   async (req, res, next) => {
     try {
       if (!req.files?.sourceImage?.[0] || !req.files?.targetImage?.[0]) {
-        throw new AppError(400, 'Both source and target images are required');
+        throw new AppError(400, 'Both sourceImage and targetImage are required');
       }
 
       const startTime = Date.now();
