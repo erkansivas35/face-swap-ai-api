@@ -26,7 +26,7 @@ const fileUpload = multer({
     fileSize: process.env.MAX_FILE_SIZE || 5 * 1024 * 1024 // 5MB
   },
   fileFilter: (req, file, cb) => {
-    const allowedTypes = (process.env.ALLOWED_FILE_TYPES || 'image/jpeg,image/png').split(',');
+    const allowedTypes = (process.env.ALLOWED_FILE_TYPES || 'image/jpeg,image/jpg,image/png').split(',');
     if (!allowedTypes.includes(file.mimetype)) {
       cb(new AppError(400, 'INVALID_IMAGE'));
       return;

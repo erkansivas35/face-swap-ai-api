@@ -26,16 +26,16 @@ class ReplicateSwapFaceService {
 
     const imageData = fs.readFileSync(imagePath);
     const signatures = {
-      'ffd8ff': 'image/jpeg',
+      'ffd8ff': ['image/jpeg', 'image/jpg'],
       '89504e47': 'image/png'
     };
 
     const header = imageData.slice(0, 4).toString('hex');
     let mimeType = null;
 
-    for (const [signature, type] of Object.entries(signatures)) {
+    for (const [signature, types] of Object.entries(signatures)) {
       if (header.startsWith(signature)) {
-        mimeType = type;
+        mimeType = Array.isArray(types) ? types[0] : types;
         break;
       }
     }
