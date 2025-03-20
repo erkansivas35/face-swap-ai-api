@@ -1,4 +1,5 @@
 const axios = require('axios');
+const fs = require('fs');
 const { AppError } = require('../middleware/errorHandler');
 
 class FaceService {
@@ -10,48 +11,43 @@ class FaceService {
     this.apiUrl = 'https://api.replicate.com/v1/predictions';
   }
 
-  validateImageData(imageData) {
-    if (!imageData) {
-      throw new AppError(400, 'Image data is required');
+  validateImagePath(imagePath) {
+    if (!imagePath) {
+      throw new AppError(400, 'Image path is required');
     }
 
-    if (Buffer.isBuffer(imageData)) {
-      // Get MIME type from buffer using file signature
-      const signatures = {
-        'ffd8ff': 'image/jpeg',
-        '89504e47': 'image/png'
-      };
+    if (!fs.existsSync(imagePath)) {
+      throw new AppError(400, 'Image file not found');
+    }
 
-      const header = imageData.slice(0, 4).toString('hex');
-      let mimeType = null;
+    const imageData = fs.readFileSync(imagePath);
+    const signatures = {
+      'ffd8ff': 'image/jpeg',
+      '89504e47': 'image/png'
+    };
 
-      for (const [signature, type] of Object.entries(signatures)) {
-        if (header.startsWith(signature)) {
-          mimeType = type;
-          break;
-        }
+    const header = imageData.slice(0, 4).toString('hex');
+    let mimeType = null;
+
+    for (const [signature, type] of Object.entries(signatures)) {
+      if (header.startsWith(signature)) {
+        mimeType = type;
+        break;
       }
-
-      if (!mimeType) {
-        throw new AppError(400, 'Unsupported image format. Only JPEG and PNG are supported');
-      }
-
-      // Convert buffer to base64 and prepend data URL
-      return `data:${mimeType};base64,${imageData.toString('base64')}`;
     }
 
-    if (typeof imageData === 'string' && (imageData.startsWith('data:image/') || imageData.startsWith('http'))) {
-      return imageData;
+    if (!mimeType) {
+      throw new AppError(400, 'Unsupported image format. Only JPEG and PNG are supported');
     }
 
-    throw new AppError(400, 'Invalid image format. Image must be a valid data URL, HTTP URL, or image buffer');
+    return `data:${mimeType};base64,${imageData.toString('base64')}`;
   }
 
-  async swapFaces(sourceImage, targetImage) {
+  async swapFaces(sourceImagePath, targetImagePath) {
     try {
       // Validate and convert image data
-      const processedSourceImage = this.validateImageData(sourceImage);
-      const processedTargetImage = this.validateImageData(targetImage);
+      const processedSourceImage = this.validateImagePath(sourceImagePath);
+      const processedTargetImage = this.validateImagePath(targetImagePath);
 
       // Validate API key by making a test request
       try {
@@ -102,9 +98,12 @@ class FaceService {
       const predictionId = response.data.id;
       let result = await this.getPredictionResult(predictionId);
 
+      const startTime = new Date(response.data.created_at).getTime();
+      const processingTime = ((Date.now() - startTime) / 1000).toFixed(1);
+
       return {
         resultImage: result.output,
-        processingTime: `${((Date.now() - response.data.created_at) / 1000).toFixed(1)}s`
+        processingTime: `${processingTime}s`
       };
     } catch (error) {
       if (error instanceof AppError) {

@@ -27,8 +27,8 @@ app.use(errorHandler);
 
 // Database connection
 const mongoUri = process.env.MONGODBURI;
-mongoose.connect(mongoUri)
-  .then(() => console.log('Connected to MongoDB'))
+mongoose.connect(mongoUri, { dbName: 'child-book-ai' })
+  .then(() => console.log('Connected to MongoDB - child-book-ai'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Start server
