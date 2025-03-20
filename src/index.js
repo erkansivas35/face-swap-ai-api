@@ -11,6 +11,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static('public'));
 
 // Rate limiting
 const limiter = rateLimit({
@@ -27,8 +28,8 @@ app.use(errorHandler);
 
 // Database connection
 const mongoUri = process.env.MONGODBURI;
-mongoose.connect(mongoUri)
-  .then(() => console.log('Connected to MongoDB'))
+mongoose.connect(mongoUri, { dbName: 'child-book-ai' })
+  .then(() => console.log('Connected to MongoDB - child-book-ai'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Start server
