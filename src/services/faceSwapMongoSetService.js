@@ -18,6 +18,22 @@ class FaceSwapService {
 
     return await faceSwapOperation.save();
   }
+
+  async updateFilePaths(operationId, {
+    sourceImage,
+    targetImage,
+    resultImage
+  }) {
+    return await FaceSwapModel.findByIdAndUpdate(
+      operationId,
+      {
+        sourceImage,
+        targetImage,
+        resultImage
+      },
+      { new: true }
+    );
+  }
 }
 
 module.exports = new FaceSwapService();

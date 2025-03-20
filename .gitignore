@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Project Folders
+src/uploads/
+
 # Environment variables
 .env
 .env.*
