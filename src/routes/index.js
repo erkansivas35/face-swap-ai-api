@@ -54,15 +54,4 @@ router.post('/swap-faces',
   }
 );
 
-router.get('/swap-faces',  async (req, res, next) => {
-    res.json({
-      success: true,
-      data: {
-        resultImageUrl: 'imageUrl,',
-        processingTime: `${(Date.now()) / 1000}s`
-      }
-    })
-  }
-);
-
 module.exports = router;

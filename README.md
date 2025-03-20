@@ -1,62 +1,62 @@
-# Yüz Değiştirme API Projesi
+# Child Book AI
 
-Bu proje, yapay zeka destekli yüz değiştirme işlemlerini gerçekleştiren bir RESTful API'dir. Node.js kullanılarak geliştirilmiştir ve fotoğraflardaki yüzleri otomatik olarak tespit edip değiştirme işlemini gerçekleştirir.
+This project is a RESTful API powered by artificial intelligence that performs face-swapping operations. Developed using Node.js, it automatically detects and swaps faces in photographs with high accuracy.
 
-## Özellikler
+## Features
 
-- Fotoğraflarda yüz tespiti
-- Yüz değiştirme işlemi
+- Face detection in photos
+- Face swapping process
 - RESTful API endpoints
-- Yüksek doğruluk oranı
-- Hızlı işlem süresi
-- Güvenli dosya yükleme
-- Detaylı hata yönetimi
+- High accuracy rate
+- Fast processing time
+- Secure file upload
+- Detailed error handling
 
-## Teknolojiler
+## Technologies
 
 - Node.js
 - Express.js
-- Multer (dosya yükleme)
-- JWT (kimlik doğrulama)
-- MongoDB (veri depolama)
-- Üçüncü Parti AI API Entegrasyonu
+- Multer (file upload)
+- JWT (authentication)
+- MongoDB (data storage)
+- Third Party AI API Integration
 
-## Kurulum
+## Installation
 
-1. Projeyi klonlayın:
+1. Clone the project:
 ```bash
-git clone [proje-url]
-cd face-swap-api
+git clone [project-url]
+cd child-book-ai
 ```
 
-2. Bağımlılıkları yükleyin:
+2. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Çevre değişkenlerini ayarlayın:
+3. Set up environment variables:
 ```bash
 cp .env.example .env
-# .env dosyasını düzenleyin ve AI API anahtarınızı ekleyin
+# Edit the .env file and add your AI API key
 ```
 
-4. Projeyi başlatın:
+4. Start the project:
 ```bash
 npm start
 ```
 
 ## API Endpoints
 
-### Yüz Değiştirme
+### Face Swapping
 `POST /api/swap-faces`
 
 **Request:**
 - Content-Type: multipart/form-data
 - Headers:
-  - X-API-Key: API anahtarınız
+  - X-API-Key: Your API key
 - Body:
-  - sourceImage: Kaynak yüz fotoğrafı
-  - targetImage: Hedef fotoğraf
+  - sourceImage: Source face photo
+  - targetImage: Target photo
 
 **Response:**
 ```json
@@ -70,64 +70,64 @@ npm start
 }
 ```
 
-### Hata Yanıtları
+### Error Responses
 ```json
 {
   "success": false,
   "error": {
     "code": "FACE_NOT_DETECTED",
-    "message": "Fotoğrafta yüz tespit edilemedi"
+    "message": "No face detected in the photo"
   }
 }
 ```
 
-## Hata Kodları
+## Error Codes
 
-- `FACE_NOT_DETECTED`: Fotoğrafta yüz bulunamadı
-- `MULTIPLE_FACES`: Birden fazla yüz tespit edildi
-- `INVALID_IMAGE`: Geçersiz görüntü formatı
-- `PROCESSING_ERROR`: İşlem sırasında hata oluştu
-- `API_KEY_INVALID`: Geçersiz API anahtarı
-- `RATE_LIMIT_EXCEEDED`: API kullanım limiti aşıldı
+- `FACE_NOT_DETECTED`: No face found in the photo
+- `MULTIPLE_FACES`: Multiple faces detected
+- `INVALID_IMAGE`: Invalid image format
+- `PROCESSING_ERROR`: Error during processing
+- `API_KEY_INVALID`: Invalid API key
+- `RATE_LIMIT_EXCEEDED`: API usage limit exceeded
 
-## Güvenlik
+## Security
 
-- API anahtarı ile kimlik doğrulama
+- API key authentication
 - Rate limiting
-- Dosya boyutu ve format kontrolü
-- CORS politikası
+- File size and format validation
+- CORS policy
 
-## Performans Optimizasyonu
+## Performance Optimization
 
-- Bulut tabanlı işlem gücü
-- Akıllı önbellekleme sistemi
-- İşlem kuyruğu yönetimi
-- Otomatik ölçeklendirme
-- CDN entegrasyonu
+- Cloud-based processing power
+- Smart caching system
+- Process queue management
+- Auto-scaling
+- CDN integration
 
-## API Kullanım Limitleri
+## API Usage Limits
 
-- Ücretsiz plan: 100 işlem/gün
-- Temel plan: 1000 işlem/gün
-- Premium plan: 10000 işlem/gün
+- Free plan: 100 operations/day
+- Basic plan: 1000 operations/day
+- Premium plan: 10000 operations/day
 
-## Geliştirme
+## Development
 
 ```bash
-# Geliştirme modunda başlatma
+# Start in development mode
 npm run dev
 
-# Test çalıştırma
+# Run tests
 npm test
 
-# Lint kontrolü
+# Lint check
 npm run lint
 ```
 
-## Lisans
+## License
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## İletişim
+## Contact
 
-Sorularınız için [email@domain.com] adresinden iletişime geçebilirsiniz.
+For questions, please contact [email@domain.com].
