@@ -11,7 +11,7 @@ ARG REPLICATE_VERSION
 # Copy application files
 COPY . .
 
-RUN npm install
+RUN npm install --only=production
 
 # Create directory for uploaded files
 RUN mkdir -p public
