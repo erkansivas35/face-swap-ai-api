@@ -6,7 +6,7 @@ services:
     ports:
       - "4355:4355"
     environment:
-      - MONGODB_URI=${MONGODB_URL}
+      - MONGODB_URI=${MONGODB_URI}
       - REPLICATE_API_KEY=${REPLICATE_API_KEY}
       - REPLICATE_VERSION=${REPLICATE_VERSION}
     volumes:
