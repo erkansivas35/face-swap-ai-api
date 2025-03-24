@@ -10,7 +10,7 @@ ARG REPLICATE_VERSION
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --production --no-package-lock
+RUN npm install --omit=dev
 
 # Copy application files
 COPY . .
