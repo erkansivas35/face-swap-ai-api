@@ -1,5 +1,11 @@
 FROM node:18-alpine
 
+RUN apt-get update
+RUN apt-get -y install python-software-properties git build-essential
+RUN add-apt-repository -y ppa:chris-lea/node.js
+RUN apt-get update
+RUN apt-get -y install nodejs
+
 WORKDIR /app
 
 # Set build arguments for environment variables
