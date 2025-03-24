@@ -47,6 +47,7 @@ jobs:
           port: 22
           script: |
             cd /home/erkan/docker-projects/faceswap
+            echo "PORT=4355" > .env
             echo "MONGODBURI=${{ secrets.MONGODBURI }}" > .env
             echo "REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}" > .env
             echo "REPLICATE_VERSION=${{ secrets.REPLICATE_VERSION }}" >> .env
