@@ -67,9 +67,8 @@ router.post('/swap-faces',
         success: true,
         data: {
           id: faceSwapOperation._id,
-          resultImageUrl: result.resultImage,
+          resultImageUrl: `/uploads/${faceSwapOperation._id.toString()}/${resultImageName}`,
           processingTime: result.processingTime,
-          test: 'test string'
           
         }
       });
