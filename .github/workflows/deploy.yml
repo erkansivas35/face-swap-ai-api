@@ -2,8 +2,8 @@ name: Deploy to Production
 
 on:
   push:
-    tags:
-      - 'v*'
+    branch:
+      - 'main'
 
 jobs:
   deploy:
@@ -33,6 +33,8 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/faceswap:latest
           build-args: |
+            PORT=4355
+            MONGODBURI=${{ secrets.MONGODBURI }}
             REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}
             REPLICATE_VERSION=${{ secrets.REPLICATE_VERSION }}
           cache-from: type=gha

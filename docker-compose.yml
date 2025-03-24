@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  notes-api:
+  faceswap:
     image: erkansivas/faceswap
     ports:
       - "4355:4355"
