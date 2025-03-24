@@ -10,7 +10,7 @@ ARG REPLICATE_VERSION
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --production
 
 # Copy application files
 COPY . .
