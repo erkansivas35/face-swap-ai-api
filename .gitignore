@@ -1,9 +1,11 @@
 # Dependencies
 node_modules/
 
+# Project Folders
+public/
+
 # Environment variables
 .env
-.env.*
 .env.local
 .env.*.local
 
