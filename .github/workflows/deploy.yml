@@ -49,6 +49,7 @@ jobs:
           command_timeout: 10m
           script: |
             cd /home/erkan/docker-projects/faceswap
+            echo "MONGODB_URL=${{ secrets.MONGODB_URL }}" > .env
             echo "REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}" > .env
             echo "REPLICATE_VERSION=${{ secrets.REPLICATE_VERSION }}" >> .env
             docker-compose pull

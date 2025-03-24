@@ -6,37 +6,9 @@ services:
     ports:
       - "4355:4355"
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/faceswap
+      - MONGODB_URI=${MONGODB_URL}
       - REPLICATE_API_KEY=${REPLICATE_API_KEY}
       - REPLICATE_VERSION=${REPLICATE_VERSION}
     volumes:
       - ./public:/app/public
-    depends_on:
-      mongodb:
-        condition: service_healthy
     restart: unless-stopped
-    networks:
-      - app-network
-
-  mongodb:
-    image: mongo:6.0
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    restart: unless-stopped
-    networks:
-      - app-network
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
-volumes:
-  mongodb_data:
-
-networks:
-  app-network:
-    driver: bridge
