@@ -67,7 +67,7 @@ router.post('/swap-faces',
         success: true,
         data: {
           id: faceSwapOperation._id,
-          resultImageUrl: `https://face-swap-api.erkansivas.xyz/uploads/${resultImagePath}`,
+          resultImageUrl: `https://face-swap-api.erkansivas.xyz/uploads/${faceSwapOperation._id.toString()}/${resultImageName}`,
           processingTime: result.processingTime, 
         }
       });
