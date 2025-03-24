@@ -24,7 +24,7 @@ ENV REPLICATE_API_KEY=${REPLICATE_API_KEY}
 ENV REPLICATE_VERSION=${REPLICATE_VERSION}
 
 # Expose the application port
-EXPOSE 3000
+EXPOSE 4355
 
 # Start the application
 CMD ["npm", "start"]
