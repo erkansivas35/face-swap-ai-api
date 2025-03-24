@@ -7,13 +7,14 @@ ARG REPLICATE_API_KEY
 ARG REPLICATE_VERSION
 
 # Copy package files
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install --omit=dev
+COPY package*.json .
+COPY package.json .
 
 # Copy application files
 COPY . .
+
+# Install dependencies
+RUN npm install
 
 # Create directory for uploaded files
 RUN mkdir -p public
