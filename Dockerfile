@@ -1,10 +1,4 @@
-FROM node:18-alpine
-
-RUN apt-get update
-RUN apt-get -y install python-software-properties git build-essential
-RUN add-apt-repository -y ppa:chris-lea/node.js
-RUN apt-get update
-RUN apt-get -y install nodejs
+FROM node:latest
 
 WORKDIR /app
 
@@ -17,9 +11,7 @@ ARG REPLICATE_VERSION
 COPY package*.json ./
 
 # Clean npm cache and install dependencies
-RUN npm cache clean --force && \
-    npm config set registry https://registry.npmjs.org/ && \
-    npm install
+RUN --mount=type=cache,target=/root/.npm npm install
 
 # Copy application files
 COPY . .
