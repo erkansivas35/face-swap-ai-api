@@ -27,9 +27,11 @@ app.use('/api', routes);
 app.use(errorHandler);
 
 // Database connection
+const isDevelopment = process.env.NODE_ENV === 'development'
 const mongoUri = process.env.MONGODBURI;
-mongoose.connect(mongoUri, { dbName: 'child-book-ai' })
-  .then(() => console.log('Connected to MongoDB - child-book-ai'))
+
+mongoose.connect(mongoUri, { dbName: isDevelopment ? 'face-swap-ai-development' : 'face-swap-ai' })
+  .then(() => console.log(`Connected to MongoDB - ${isDevelopment ? 'face-swap-ai-development' : 'face-swap-ai'}`))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Start server

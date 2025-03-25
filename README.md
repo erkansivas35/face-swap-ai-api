@@ -1,32 +1,32 @@
-# Child Book AI
+# Face Swap AI
 
-This project is a RESTful API powered by artificial intelligence that performs face-swapping operations. Developed using Node.js, it automatically detects and swaps faces in photographs with high accuracy.
+This project is a RESTful API powered by artificial intelligence that performs face-swapping operations using Replicate's API. Built with Node.js and Express.js, it provides secure and rate-limited endpoints for face swapping operations.
 
 ## Features
 
-- Face detection in photos
-- Face swapping process
+- Face swapping using Replicate's AI API
 - RESTful API endpoints
-- High accuracy rate
-- Fast processing time
-- Secure file upload
-- Detailed error handling
+- Rate limiting protection
+- File upload with size and type validation
+- Comprehensive error handling
+- MongoDB integration for data persistence
 
 ## Technologies
 
 - Node.js
 - Express.js
-- Multer (file upload)
-- JWT (authentication)
 - MongoDB (data storage)
-- Third Party AI API Integration
+- Multer (file upload handling)
+- Replicate API (AI face swapping)
+- Express Rate Limit
+- CORS enabled
+- Environment configuration with dotenv
 
 ## Installation
 
 1. Clone the project:
 ```bash
 git clone [project-url]
-cd child-book-ai
 ```
 
 2. Install dependencies:
@@ -37,97 +37,77 @@ npm install
 3. Set up environment variables:
 ```bash
 cp .env.example .env
-# Edit the .env file and add your AI API key
 ```
 
-4. Start the project:
+Configure the following environment variables in your .env file:
+
+```env
+# Server Configuration
+PORT=4355
+NODE_ENV=development
+
+# MongoDB Configuration
+MONGODBURI=your_mongodb_connection_string
+
+# Replicate API Configuration
+REPLICATE_API_KEY=your_replicate_api_key
+REPLICATE_VERSION=your_replicate_version
+
+# File Upload Configuration
+MAX_FILE_SIZE=5242880
+ALLOWED_FILE_TYPES=image/jpeg,image/jpg,image/png
+
+# Rate Limiting
+RATE_LIMIT_WINDOW=900000
+RATE_LIMIT_MAX=100
+```
+
+## Development
+
+Start the development server:
+```bash
+npm run dev
+```
+
+Start production server:
 ```bash
 npm start
 ```
 
-## API Endpoints
-
-### Face Swapping
-`POST /api/swap-faces`
-
-**Request:**
-- Content-Type: multipart/form-data
-- Headers:
-  - X-API-Key: Your API key
-- Body:
-  - sourceImage: Source face photo
-  - targetImage: Target photo
-
-**Response:**
-```json
-{
-  "success": true,
-  "data": {
-    "resultImageUrl": "https://[domain]/results/processed-image.jpg",
-    "processingTime": "2.3s",
-    "quality": "high"
-  }
-}
-```
-
-### Error Responses
-```json
-{
-  "success": false,
-  "error": {
-    "code": "FACE_NOT_DETECTED",
-    "message": "No face detected in the photo"
-  }
-}
-```
-
-## Error Codes
-
-- `FACE_NOT_DETECTED`: No face found in the photo
-- `MULTIPLE_FACES`: Multiple faces detected
-- `INVALID_IMAGE`: Invalid image format
-- `PROCESSING_ERROR`: Error during processing
-- `API_KEY_INVALID`: Invalid API key
-- `RATE_LIMIT_EXCEEDED`: API usage limit exceeded
-
-## Security
-
-- API key authentication
-- Rate limiting
-- File size and format validation
-- CORS policy
-
-## Performance Optimization
-
-- Cloud-based processing power
-- Smart caching system
-- Process queue management
-- Auto-scaling
-- CDN integration
-
-## API Usage Limits
-
-- Free plan: 100 operations/day
-- Basic plan: 1000 operations/day
-- Premium plan: 10000 operations/day
-
-## Development
-
+Run tests:
 ```bash
-# Start in development mode
-npm run dev
-
-# Run tests
 npm test
+```
 
-# Lint check
+Lint check:
+```bash
 npm run lint
 ```
+
+## Rate Limiting
+
+The API implements rate limiting to prevent abuse:
+- Window: 15 minutes (configurable via RATE_LIMIT_WINDOW)
+- Max requests: 100 per window (configurable via RATE_LIMIT_MAX)
+
+## File Upload Restrictions
+
+- Maximum file size: 5MB
+- Allowed file types: JPEG, JPG, PNG
+
+## Docker Support
+
+The project includes Docker support for containerized deployment:
+
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+```
+
+## Deployment
+
+The project includes GitHub Actions workflow for automated deployment. Configure your deployment secrets in GitHub repository settings.
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For questions, please contact [email@domain.com].
