@@ -49,6 +49,8 @@ jobs:
           port: 22
           script: |
             cd /home/erkan/docker-projects/faceswap
+            rm -rf docker-compose.yml
+            curl -o docker-compose.yml https://raw.githubusercontent.com/erkansivas35/face-swap-ai-project/refs/heads/main/docker-compose.yml
             echo "MONGODBURI=${{ secrets.MONGODBURI }}" > .env
             echo "UPLOADS_BASE_URL=https://face-swap-api.erkansivas.xyz/uploads/" >> .env
             echo "REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}" >> .env
