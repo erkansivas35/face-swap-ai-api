@@ -1,5 +1,8 @@
 FROM node:18
 
+# Install nginx
+RUN apt-get update && apt-get install -y nginx
+
 WORKDIR /app
 
 # Set build arguments for environment variables
@@ -18,6 +21,9 @@ RUN npm install --only=production
 # Create directory for uploaded files
 RUN mkdir -p public
 
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=4355
@@ -26,8 +32,12 @@ ENV UPLOADS_BASE_URL=https://face-swap-api.erkansivas.xyz/uploads/
 ENV REPLICATE_API_KEY=${REPLICATE_API_KEY}
 ENV REPLICATE_VERSION=${REPLICATE_VERSION}
 
-# Start the application
-CMD ["npm", "start"]
+# Create startup script
+RUN echo '#!/bin/bash\nnginx\nnpm start' > /app/start.sh
+RUN chmod +x /app/start.sh
 
-# Expose the application port
-EXPOSE 4355
+# Start both nginx and node application
+CMD ["/app/start.sh"]
+
+# Expose both nginx and application ports
+EXPOSE 80 4355
