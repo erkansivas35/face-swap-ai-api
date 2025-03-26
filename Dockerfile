@@ -33,7 +33,7 @@ ENV REPLICATE_API_KEY=${REPLICATE_API_KEY}
 ENV REPLICATE_VERSION=${REPLICATE_VERSION}
 
 # Create startup script
-RUN echo '#!/bin/bash\nnginx\nnpm start' > /app/start.sh
+RUN echo '#!/bin/bash\nnginx\npm start' > /app/start.sh
 RUN chmod +x /app/start.sh
 
 # Start both nginx and node application

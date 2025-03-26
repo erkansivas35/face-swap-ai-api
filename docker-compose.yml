@@ -4,7 +4,7 @@ services:
   faceswap:
     image: erkansivas/faceswap
     ports:
-      - "8080:8080"
+      - "8080:80"
       - "4355:4355"
     volumes:
       - ./public:/app/public
