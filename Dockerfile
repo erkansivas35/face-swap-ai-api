@@ -22,7 +22,7 @@ RUN mkdir -p public
 ENV NODE_ENV=production
 ENV PORT=4355
 ENV MONGODBURI=${MONGODBURI}
-ENV UPLOADS_BASE_URL=https://easyaitools.xyz/uploads/
+ENV UPLOADS_BASE_URL=https://face-swap-api.erkansivas.xyz/uploads/
 ENV REPLICATE_API_KEY=${REPLICATE_API_KEY}
 ENV REPLICATE_VERSION=${REPLICATE_VERSION}
 
