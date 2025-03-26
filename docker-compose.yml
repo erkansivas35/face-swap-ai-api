@@ -4,8 +4,14 @@ services:
   faceswap:
     image: erkansivas/faceswap
     ports:
-      - "80:80"
+      - "8080:80"
       - "4355:4355"
     volumes:
       - ./public:/app/public
     restart: unless-stopped
+    networks:
+      - faceswap_network
+
+networks:
+  faceswap_network:
+    name: faceswap_network
