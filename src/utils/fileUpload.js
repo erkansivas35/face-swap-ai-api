@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
 const fileUpload = multer({
   storage,
   limits: {
-    fileSize: process.env.MAX_FILE_SIZE || 5 * 1024 * 1024 // 5MB
+    fileSize: process.env.MAX_FILE_SIZE || 50 * 1024 * 1024 // 50MB
   },
   fileFilter: (req, file, cb) => {
     const allowedTypes = (process.env.ALLOWED_FILE_TYPES || 'image/jpeg,image/jpg,image/png').split(',');
