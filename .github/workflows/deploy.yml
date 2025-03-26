@@ -34,7 +34,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/faceswap:latest
           build-args: |
             MONGODBURI=${{ secrets.MONGODBURI }}
-            UPLOADS_BASE_URL=https://face-swap-api.erkansivas.xyz/uploads/
+            UPLOADS_BASE_URL=https://easyaitools.xyz/uploads/
             REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}
             REPLICATE_VERSION=${{ secrets.REPLICATE_VERSION }}
           cache-from: type=gha
@@ -52,7 +52,7 @@ jobs:
             rm -rf docker-compose.yml
             curl -o docker-compose.yml https://raw.githubusercontent.com/erkansivas35/face-swap-ai-project/refs/heads/dev/docker-compose.yml
             echo "MONGODBURI=${{ secrets.MONGODBURI }}" > .env
-            echo "UPLOADS_BASE_URL=https://face-swap-api.erkansivas.xyz/uploads/" >> .env
+            echo "UPLOADS_BASE_URL=https://easyaitools.xyz/uploads/" >> .env
             echo "REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}" >> .env
             echo "REPLICATE_VERSION=${{ secrets.REPLICATE_VERSION }}" >> .env
             docker-compose down
