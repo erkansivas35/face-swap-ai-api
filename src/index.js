@@ -11,6 +11,13 @@ const app = express();
 // Middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.raw({ limit: '50mb' }));
+// Increase multipart/form-data limit
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 app.use(cors());
 app.use('/uploads', express.static('public'));
 
