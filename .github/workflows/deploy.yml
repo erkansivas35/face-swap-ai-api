@@ -32,6 +32,12 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/faceswap:latest
+          build-args: |
+            MONGODBURI=${{ secrets.MONGODBURI }}
+            UPLOADS_BASE_URL=https://face-swap-api.erkansivas.xyz/uploads/
+            REPLICATE_API_KEY=${{ secrets.REPLICATE_API_KEY }}
+            REPLICATE_VERSION=${{ secrets.REPLICATE_VERSION }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
