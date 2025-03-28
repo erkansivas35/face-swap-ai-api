@@ -1,0 +1,46 @@
+paths:
+  /swap-faces:
+    post:
+      summary: Swap faces between two images
+      description: Upload two images (source and target) and swap faces between them.
+      tags:
+        - Face Swap
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                sourceImage:
+                  type: string
+                  format: binary
+                  description: The source image file
+                targetImage:
+                  type: string
+                  format: binary
+                  description: The target image file
+              required:
+                - sourceImage
+                - targetImage
+      responses:
+        200:
+          description: Face swap successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      resultImageUrl:
+                        type: string
+                      processingTime:
+                        type: string
+        "400":
+          description: Bad request

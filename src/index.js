@@ -9,7 +9,6 @@ const swaggerDocs = require('../swagger');
 
 const rateLimit = require('express-rate-limit');
 const { errorHandler } = require('./middleware/errorHandler');
-const { protect } = require('./middleware/checkUserToken');
 
 // Routes
 const routes = require('./routes');

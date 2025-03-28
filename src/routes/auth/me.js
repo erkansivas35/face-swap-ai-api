@@ -1,10 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/me", (req, res) => {
+const { protect } = require('../../middleware/checkUserToken');
+
+router.get("/me", protect, (req, res) => {
+  console.log(req.user);
+
   res.json({
     success: true,
-    data: req.user,
+    data: {
+      id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+      createdAt: req.user.createdAt
+    },
   });
 });
 
