@@ -1,5 +1,4 @@
 const swaggerJsDoc = require('swagger-jsdoc');
-const isDevelopment = process.env.NODE_ENV === 'development'
 
 const swaggerOptions = {
   swaggerDefinition: {
@@ -14,14 +13,10 @@ const swaggerOptions = {
       }
     },
     servers: [
-      isDevelopment ?
-        {
-          url: 'http://localhost:4355/api',
-          description: 'Development Server'
-        } : {
-          url: 'https://face-swap-api.erkansivas.xyz/api',
-          description: 'Production Server'
-        }
+      {
+        url: 'http://localhost:4355/api',
+        description: 'Development Server'
+      }
     ]
   },
   apis: ['./src/routes/*.js', './src/routes/*/*.js', './src/docs/*.yaml', './src/docs/*/*.yaml']
