@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('../swagger');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const routes = require('./routes');
@@ -30,6 +32,9 @@ app.use('/api/', limiter);
 
 // Routes
 app.use('/api', routes);
+
+// Swagger UI endpoint
+app.use('/api-swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Error handling
 app.use(errorHandler);
