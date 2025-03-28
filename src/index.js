@@ -16,6 +16,8 @@ const authRoutes = require("./routes/auth");
 
 const app = express();
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 // Middleware
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true }));
@@ -44,13 +46,14 @@ app.use('/api', routes);
 app.use("/api/auth", authRoutes);
 
 // Swagger UI endpoint
-app.use('/api-swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+if (isDevelopment) {
+  app.use('/api-swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+}
 
 // Error handling
 app.use(errorHandler);
 
 // Database connection
-const isDevelopment = process.env.NODE_ENV === 'development'
 const mongoUri = process.env.MONGODBURI;
 
 mongoose.connect(mongoUri, { dbName: isDevelopment ? 'face-swap-ai-development' : 'face-swap-ai' })
