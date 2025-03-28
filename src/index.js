@@ -1,12 +1,19 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+
 const mongoose = require('mongoose');
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('../swagger');
-const cors = require('cors');
+
 const rateLimit = require('express-rate-limit');
-const routes = require('./routes');
 const { errorHandler } = require('./middleware/errorHandler');
+const { protect } = require('./middleware/checkUserToken');
+
+// Routes
+const routes = require('./routes');
+const authRoutes = require("./routes/auth");
 
 const app = express();
 
@@ -15,6 +22,7 @@ app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true }));
 app.use(express.raw({ limit: '100mb' }));
 // Increase multipart/form-data limit
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -32,6 +40,9 @@ app.use('/api/', limiter);
 
 // Routes
 app.use('/api', routes);
+
+// Auth Routes
+app.use("/api/auth", authRoutes);
 
 // Swagger UI endpoint
 app.use('/api-swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
