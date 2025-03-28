@@ -1,0 +1,42 @@
+paths:
+  /auth/me:
+    get:
+      summary: Get current user information
+      description: Returns the authenticated user's information.
+      tags:
+        - Authentication
+      security:
+        - bearerAuth: [] # JWT token authentication
+      responses:
+        "200":
+          description: User information retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 642d1f5e3e8b2c001f5e8a9c
+                      name:
+                        type: string
+                        example: John Doe
+                      email:
+                        type: string
+                        example: johndoe@example.com
+        "401":
+          description: Unauthorized (missing or invalid token)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized

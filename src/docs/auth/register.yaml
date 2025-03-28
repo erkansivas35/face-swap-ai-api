@@ -1,0 +1,54 @@
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      description: Creates a new user account and returns a JWT token.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                  description: Full name of the user
+                email:
+                  type: string
+                  example: johndoe@example.com
+                  description: Email address of the user
+                password:
+                  type: string
+                  example: password123
+                  description: Password for the user account
+              required:
+                - name
+                - email
+                - password
+      responses:
+        "201":
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        "400":
+          description: Email already in use
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Email already in use
