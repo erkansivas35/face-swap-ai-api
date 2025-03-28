@@ -1,5 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
+
 const User = require("../../models/user");
 const { AppError } = require("../../middleware/errorHandler");
 
@@ -8,6 +10,11 @@ const router = express.Router();
 router.post("/register", async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
+
+    // Email validation
+    if (!validator.isEmail(email)) {
+      throw new AppError(400, "Invalid email format");
+    }
 
     // Check user
     const existingUser = await User.findOne({ email });
