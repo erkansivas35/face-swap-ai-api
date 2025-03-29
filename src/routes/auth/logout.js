@@ -1,6 +1,6 @@
 const express = require('express');
 const { AppError } = require('../../middleware/errorHandler');
-const BlacklistedToken = require('../../models/blacklistedToken');
+const BlacklistedToken = require('../../models/blacklisted-token');
 const jwt = require('jsonwebtoken');
 const { protect } = require('../../middleware/checkUserToken');
 
