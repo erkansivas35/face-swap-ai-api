@@ -1,4 +1,4 @@
-const FaceSwapModel = require('../models/faceSwap');
+const FaceSwapModel = require('../models/generated-face-swap');
 
 class FaceSwapService {
   async saveFaceSwapOperation({

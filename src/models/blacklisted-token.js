@@ -7,6 +7,6 @@ const blacklistedTokenSchema = new mongoose.Schema({
 
 blacklistedTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 }); // Automatically delete expired tokens
 
-const BlacklistedToken = mongoose.model('BlacklistedToken', blacklistedTokenSchema);
+const BlacklistedToken = mongoose.model('blacklisted-token', blacklistedTokenSchema);
 
 module.exports = BlacklistedToken;

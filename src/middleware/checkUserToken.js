@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('./../models/user');
-const BlacklistedToken = require('../models/blacklistedToken');
+const BlacklistedToken = require('../models/blacklisted-token');
 const { AppError } = require('./errorHandler');
 
 const protect = async (req, res, next) => {
