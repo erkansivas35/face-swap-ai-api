@@ -40,3 +40,9 @@ paths:
                   error:
                     type: string
                     example: Unauthorized
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT

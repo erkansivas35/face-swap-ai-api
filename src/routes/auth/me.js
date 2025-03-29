@@ -4,8 +4,6 @@ const router = express.Router();
 const { protect } = require('../../middleware/checkUserToken');
 
 router.get("/me", protect, (req, res) => {
-  console.log(req.user);
-
   res.json({
     success: true,
     data: {

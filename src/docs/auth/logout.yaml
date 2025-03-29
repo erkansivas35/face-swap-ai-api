@@ -1,0 +1,72 @@
+paths:
+  /auth/logout:
+    post:
+      summary: Logout the user
+      description: Invalidates the user's JWT token by adding it to the blacklist.
+      tags:
+        - Authentication
+      security:
+        - bearerAuth: [] # Requires Authorization header with Bearer token
+      requestBody:
+        description: No request body is required for this endpoint.
+        required: false
+      responses:
+        '200':
+          description: Successfully logged out.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Logged out successfully
+        '400':
+          description: No token provided.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: No token provided
+        '401':
+          description: Unauthorized or invalid token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: Token is invalid or expired
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: Logout failed
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: Bearer
+      bearerFormat: JWT
