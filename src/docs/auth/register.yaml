@@ -50,5 +50,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    type: string
-                    example: Email already in use
+                    type: object
+                    example: 
+                      code: INTERNAL_ERROR
+                      message: Email already in use
