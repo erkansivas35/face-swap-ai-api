@@ -35,7 +35,7 @@ router.get("/list/:id", protect, async (req, res, next) => {
   }
 });
 
-router.delete('/list/:id', async (req, res) => {
+router.delete('/list/:id', protect, async (req, res) => {
   try {
     const item = await FaceSwap.findByIdAndDelete(req.params.id);
 
