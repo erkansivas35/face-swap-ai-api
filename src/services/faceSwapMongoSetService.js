@@ -6,14 +6,16 @@ class FaceSwapService {
     targetImage,
     resultImage,
     replicateVersion,
-    processingTime
+    processingTime,
+    createdBy
   }) {
     const faceSwapOperation = new FaceSwapModel({
       sourceImage,
       targetImage,
       resultImage,
       replicateVersion,
-      processingTime
+      processingTime,
+      createdBy
     });
 
     return await faceSwapOperation.save();

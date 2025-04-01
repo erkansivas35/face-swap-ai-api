@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const faceSwapSchema = new mongoose.Schema({
+  createdBy: { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+    default: null
+  },
   sourceImage: {
     type: String,
     required: true
