@@ -7,7 +7,7 @@ router.get("/me", protect, (req, res) => {
   res.json({
     success: true,
     data: {
-      id: req.user._id,
+      id: req.user.id,
       name: req.user.name,
       email: req.user.email,
       createdAt: req.user.createdAt
