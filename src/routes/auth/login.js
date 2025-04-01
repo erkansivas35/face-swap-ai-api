@@ -20,7 +20,17 @@ router.post('/login', async (req, res, next) => {
 
     // JWT oluştur ve döndür
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-    res.json({ success: true, token });
+    
+    res.json({
+      success: true,
+      token,
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt
+      }
+    });
   } catch (error) {
     next(error);
   }
