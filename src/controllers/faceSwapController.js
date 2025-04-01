@@ -10,6 +10,9 @@ const swapFaces = async (req, res, next) => {
       throw new AppError(400, 'Both sourceImage and targetImage are required');
     }
 
+    // is User Auth
+    const createdBy = req.user?._id
+
     // Process face swap
     const result = await replicateSwapFaceService.swapFaces(
       req.files.sourceImage[0].path,
@@ -22,7 +25,8 @@ const swapFaces = async (req, res, next) => {
       targetImage: req.files.targetImage[0].filename,
       resultImage: result.resultImage,
       replicateVersion: process.env.REPLICATE_VERSION,
-      processingTime: result.processingTime
+      processingTime: result.processingTime,
+      createdBy
     });
 
     // Create directory for the operation
