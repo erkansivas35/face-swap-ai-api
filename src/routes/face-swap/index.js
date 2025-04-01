@@ -17,8 +17,9 @@ router.post("/", checkToken,
 
 router.get("/", protect, async (req, res, next) => {
   try {
-    const createdBy = req.user?._id
-    const result = await FaceSwap.find({ createdBy: createdBy })
+    const createdBy = req.user?.id
+    
+    const result = await FaceSwap.find({ createdBy: createdBy }).sort({ _id: -1 })
    
     res.json({
       success: true,

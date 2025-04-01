@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
+const mongooseTransformPlugin = require("./utils/mongooseTransformPlugin");
+
+mongoose.plugin(mongooseTransformPlugin);
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('../swagger');

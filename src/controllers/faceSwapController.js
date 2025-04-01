@@ -11,7 +11,7 @@ const swapFaces = async (req, res, next) => {
     }
 
     // is User Auth
-    const createdBy = req.user?._id
+    const createdBy = req.user?.id
 
     // Process face swap
     const result = await replicateSwapFaceService.swapFaces(
@@ -30,7 +30,7 @@ const swapFaces = async (req, res, next) => {
     });
 
     // Create directory for the operation
-    const operationDir = path.join(__dirname, '../../public', faceSwapOperation._id.toString());
+    const operationDir = path.join(__dirname, '../../public', faceSwapOperation.id.toString());
     fs.mkdirSync(operationDir, { recursive: true });
 
     // Move files from temp to operation directory
@@ -49,17 +49,17 @@ const swapFaces = async (req, res, next) => {
     fs.writeFileSync(resultImagePath, Buffer.from(resultBuffer));
 
     // Update MongoDB record with new file paths
-    await faceSwapService.updateFilePaths(faceSwapOperation._id, {
-      sourceImage: path.join(faceSwapOperation._id.toString(), req.files.sourceImage[0].filename),
-      targetImage: path.join(faceSwapOperation._id.toString(), req.files.targetImage[0].filename),
-      resultImage: path.join(faceSwapOperation._id.toString(), resultImageName)
+    await faceSwapService.updateFilePaths(faceSwapOperation.id, {
+      sourceImage: path.join(faceSwapOperation.id.toString(), req.files.sourceImage[0].filename),
+      targetImage: path.join(faceSwapOperation.id.toString(), req.files.targetImage[0].filename),
+      resultImage: path.join(faceSwapOperation.id.toString(), resultImageName)
     });
 
     res.json({
       success: true,
       data: {
-        id: faceSwapOperation._id,
-        resultImageUrl: `${process.env.UPLOADS_BASE_URL}${faceSwapOperation._id.toString()}/${resultImageName}`,
+        id: faceSwapOperation.id,
+        resultImageUrl: `${process.env.UPLOADS_BASE_URL}${faceSwapOperation.id.toString()}/${resultImageName}`,
         processingTime: result.processingTime, 
       }
     });

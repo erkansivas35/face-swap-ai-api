@@ -19,8 +19,18 @@ router.post('/login', async (req, res, next) => {
     if (!isMatch) throw new AppError(400, 'Invalid email or password');
 
     // JWT oluştur ve döndür
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-    res.json({ success: true, token });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    
+    res.json({
+      success: true,
+      token,
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt
+      }
+    });
   } catch (error) {
     next(error);
   }
