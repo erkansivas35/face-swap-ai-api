@@ -13,6 +13,7 @@ const { errorHandler } = require('./middleware/errorHandler');
 // Routes
 const routes = require('./routes');
 const authRoutes = require("./routes/auth");
+const faceSwapRoutes = require("./routes/face-swap");
 
 const app = express();
 
@@ -41,9 +42,10 @@ app.use('/api/', limiter);
 
 // Routes
 app.use('/api', routes);
-
 // Auth Routes
 app.use("/api/auth", authRoutes);
+// Face Swap Routes
+app.use("/api/face-swap", faceSwapRoutes);
 
 // Swagger UI endpoint
 if (isDevelopment) {
