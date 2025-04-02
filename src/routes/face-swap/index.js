@@ -4,7 +4,7 @@ const FaceSwap = require('../../models/generated-face-swap');
 const { protect } = require('../../middleware/checkUserToken');
 
 const fileUpload = require("../../utils/fileUpload");
-const { swapFaces } = require("../../controllers/faceSwapController");
+const { swapFaces, deleteSwapFaces } = require("../../controllers/faceSwapController");
 const { checkToken } = require('../../middleware/getUserIdFromToken');
 
 router.post("/", checkToken,
@@ -48,21 +48,7 @@ router.get("/:id", protect, async (req, res, next) => {
   }
 });
 
-router.delete('/:id', protect, async (req, res) => {
-  try {
-    const item = await FaceSwap.findByIdAndDelete(req.params.id);
-
-    if (!item) {
-      return res.status(404).send();
-    }
-
-    res.json({
-      success: true,
-    })
-  } catch (error) {
-    next(error);
-  }
-});
+router.delete('/:id', protect, deleteSwapFaces);
 
 
 module.exports = router;
